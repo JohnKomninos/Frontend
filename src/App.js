@@ -1,13 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import {useState, useEffect} from 'react'
-import axios from 'axios'
-
+import logo from "./logo.svg";
+import "./App.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
   return (
     <>
-      <h1>howdy!</h1>
+      <h1>BYE!</h1>
     </>
   );
 }
