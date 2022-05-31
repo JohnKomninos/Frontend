@@ -3,6 +3,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import NewBeach from './components/newbeach'
+import ShowBeach from './components/showbeach'
 
 function App() {
   const local = 'http://localhost:3000/'
@@ -13,6 +14,7 @@ function App() {
   const [image, setImage] = useState("")
   const [location, setLocation] = useState("")
   const [popularity, setPopularity] = useState("")
+  const [beach, setBeach] = useState([])
 
 //function to handle name input
   const handleName = (event) =>{
@@ -34,6 +36,12 @@ function App() {
     setPopularity(event.target.value)
   }
 
+  useEffect(()=>{
+    axios.get(local).then((response)=>{
+      setBeach(response.data)
+    })
+  },[])
+
   const submitBeach = (event) =>{
     event.preventDefault()
     axios.post(heroku, {
@@ -41,14 +49,16 @@ function App() {
       image:image,
       location:location,
       popularity:popularity
-    }
-  )
+    })
   }
 
 // Created newBeach component for adding beaches to the data base
   return (
     <>
       <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach}/>
+      {beach.map((beach)=>{
+        return <ShowBeach beach={beach}/>
+      })}
     </>
   );
 
