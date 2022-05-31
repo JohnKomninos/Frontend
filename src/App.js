@@ -73,13 +73,13 @@ function App() {
     const lclID = `http://localhost:3000/${beachData._id}`
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`
     event.preventDefault()
-    axios.put(lclID ,{
+    axios.put(hrkID ,{
       name:name,
       image:image,
       location:location,
       popularity:popularity
     }).then(()=>{
-      axios.get(lcl).then((response)=>{
+      axios.get(hrk).then((response)=>{
         setBeach(response.data)
       })
     })
