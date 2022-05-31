@@ -6,8 +6,8 @@ import NewBeach from './components/newbeach'
 import ShowBeach from './components/showbeach'
 
 function App() {
-  const local = 'http://localhost:3000/'
-  const heroku = 'https://mysterious-meadow-36213.herokuapp.com/'
+  const lcl = `http://localhost:3000/`
+  const hrk = `https://mysterious-meadow-36213.herokuapp.com/`
 
 //setting all the states
   const [name, setName] = useState("")
@@ -37,18 +37,32 @@ function App() {
   }
 
   useEffect(()=>{
-    axios.get(local).then((response)=>{
+    axios.get(hrk).then((response)=>{
       setBeach(response.data)
     })
   },[])
 
   const submitBeach = (event) =>{
     event.preventDefault()
-    axios.post(heroku, {
+    axios.post(hrk, {
       name:name,
       image:image,
       location:location,
       popularity:popularity
+    }).then(()=>{
+      axios.get(hrk).then((response)=>{
+        setBeach(response.data)
+      })
+    })
+  }
+
+  const handleDelete = (beachData) =>{
+    const lclID = `http://localhost:3000/${beachData._id}`
+    const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`
+    axios.delete(hrkID).then(()=>{
+      axios.get(hrk).then((response)=>{
+        setBeach(response.data)
+      })
     })
   }
 
@@ -56,15 +70,13 @@ function App() {
   return (
     <>
       <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach}/>
-      {beach.map((beach)=>{
-        return <ShowBeach beach={beach}/>
-      })}
+      <div className="flex-parent">
+        {beach.map((beach)=>{
+          return <ShowBeach beach={beach} handleDelete={handleDelete}/>
+        })}
+      </div>
     </>
   );
-
-
-
-
 }
 
 export default App;
