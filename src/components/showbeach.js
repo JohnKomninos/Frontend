@@ -6,6 +6,13 @@ const ShowBeach = (props) =>{
       location:{props.beach.location}<br/>
       Popularity:{props.beach.popularity}<br/>
       <button onClick={(event)=>{props.handleDelete(props.beach)}}>Remove Beach</button>
+      <form onSubmit={(event)=>{props.handleUpdate(props.beach,   event)}}>
+        Name: <input type ="text" onChange={props.handleName} placeholder={props.beach.name}/><br/>
+        Image:<input type ="text" onChange={props.handleImage}placeholder={props.beach.image}/><br/>
+        Location:<input type ="text" onChange={props.handleLocation}placeholder={props.beach.location}/><br/>
+        Popularity:<input type ="text" onChange={props.handlePopularity}placeholder={props.beach.popularity}/><br/>
+        <input type="submit" value="Edit Beach"/>
+      </form>
     </div>
   )
 }
