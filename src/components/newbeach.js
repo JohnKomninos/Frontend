@@ -2,7 +2,7 @@ const NewBeach = (props) =>{
   return(
     <div>
       <h3>Beaches</h3>
-      {props.showForm !== true ? <button onClick={props.toggleForm}>Add Beach</button> : <button>Close</button>}
+      {props.showForm !== true ? <button onClick={props.toggleForm}>Add Beach</button> : <button onClick={props.closeForm}>Close</button>}
       { props.showForm ?
       <form onSubmit={props.submitBeach}>
         Name: <input type ="text" onChange={props.handleName} required/><br/>

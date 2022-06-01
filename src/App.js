@@ -18,9 +18,6 @@ function App() {
   const [updateImage, setUpdateImage] = useState()
   const [updateLocation, setUpdateLocation] = useState()
   const [updatePopularity, setUpdatePopularity] = useState()
-
-
-  const [index, setIndex] = useState(0)
   const [creatureID, setCreatureID] = useState()
   const [showForm, setShowForm] = useState()
   const [beach, setBeach] = useState([])
@@ -76,13 +73,12 @@ function App() {
 //lets users add new beaches
   const submitBeach = (event) =>{
     event.preventDefault()
-    setIndex(index+1)
+    setShowForm(false)
     axios.post(hrk, {
       name:name,
       image:image,
       location:location,
-      popularity:popularity,
-      index:index
+      popularity:popularity
     }).then(()=>{
       axios.get(hrk).then((response)=>{
         setBeach(response.data)
@@ -133,13 +129,17 @@ function App() {
   const toggleForm = () =>{
     setShowForm(true)
   }
+
+  const closeForm = () =>{
+    setShowForm(false)
+  }
 // Created newBeach component for adding beaches to the data base
   return (
     <>
-      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/>
+      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm} closeForm={closeForm}/>
       <div className="flex-parent">
         {beach.map((beach)=>{
-          return <ShowBeach beach={beach} handleDelete={handleDelete} handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} handleUpdate={handleUpdate} handleUpdateName={handleUpdateName} handleUpdateImage={handleUpdateImage} handleUpdateLocation={handleUpdateLocation} handleUpdatePopularity={handleUpdatePopularity} index={index} creatureID={creatureID} toggleEdit={toggleEdit} closeEdit={closeEdit}/>
+          return <ShowBeach beach={beach} handleDelete={handleDelete} handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} handleUpdate={handleUpdate} handleUpdateName={handleUpdateName} handleUpdateImage={handleUpdateImage} handleUpdateLocation={handleUpdateLocation} handleUpdatePopularity={handleUpdatePopularity} creatureID={creatureID} toggleEdit={toggleEdit} closeEdit={closeEdit}/>
         })}
       </div>
     </>
