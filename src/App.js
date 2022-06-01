@@ -23,6 +23,7 @@ function App() {
   const [showForm, setShowForm] = useState()
   const [displayShow, setDisplayShow] = useState()
   const [beach, setBeach] = useState([])
+  const [showData, setShowData] = useState()
 
 //function to handle name input
   const handleName = (event) =>{
@@ -117,26 +118,27 @@ function App() {
   }
 
   const toggleEdit = (beachData) =>{
-    if(creatureID === undefined){
     setCreatureID(beachData._id)
     setUpdateName()
     setUpdateImage()
     setUpdateLocation()
     setUpdatePopularity()
-  } else {
+  }
+
+  const closeEdit = () =>{
     setCreatureID()
-    }
   }
 
   const toggleForm = () =>{
     if(showForm === true){
       setShowForm(false)
     } else {
-    setShowForm(true)
+      setShowForm(true)
     }
   }
 
-  const show = () =>{
+  const show = (beachData) =>{
+    setShowData(beachData)
     if(displayShow === true){
       setDisplayShow(false)
     } else {
@@ -147,11 +149,11 @@ function App() {
   return (
     <>
       {displayShow !== true ?
-      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show}/>}
+      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show} showData={showData}/>}
       {displayShow !== true ?
       <div className="flex-parent">
         {beach.map((beach)=>{
-          return <ShowBeach beach={beach} handleDelete={handleDelete} handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} handleUpdate={handleUpdate} handleUpdateName={handleUpdateName} handleUpdateImage={handleUpdateImage} handleUpdateLocation={handleUpdateLocation} handleUpdatePopularity={handleUpdatePopularity} creatureID={creatureID} toggleEdit={toggleEdit} show={show}/>
+          return <ShowBeach beach={beach} handleDelete={handleDelete} handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} handleUpdate={handleUpdate} handleUpdateName={handleUpdateName} handleUpdateImage={handleUpdateImage} handleUpdateLocation={handleUpdateLocation} handleUpdatePopularity={handleUpdatePopularity} creatureID={creatureID} toggleEdit={toggleEdit} closeEdit={closeEdit} show={show}/>
         })}
       </div> : "" }
     </>
