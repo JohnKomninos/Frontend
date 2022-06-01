@@ -121,7 +121,7 @@ function App() {
           setBeach(response.data);
         });
       });
-  };
+  }
 
   const toggleEdit = (beachData) =>{
     setCreatureID(beachData._id)
