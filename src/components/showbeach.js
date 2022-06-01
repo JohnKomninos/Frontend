@@ -16,53 +16,39 @@ const ShowBeach = (props) => {
       >
         Remove Beach
       </button>
-      <form
-        onSubmit={(event) => {
-          props.handleUpdate(props.beach, event);
-        }}
-      >
-        Name:{" "}
-        <input
-          type="text"
-          onChange={props.handleName}
-          placeholder={props.beach.name}
-        />
-        <br />
-        Image:
-        <input
-          type="text"
-          onChange={props.handleImage}
-          placeholder={props.beach.image}
-        />
-        <br />
-        Location:
-        <input
-          type="text"
-          onChange={props.handleLocation}
-          placeholder={props.beach.location}
-        />
-        <br />
-        Popularity:
-        <input
-          type="text"
-          onChange={props.handlePopularity}
-          placeholder={props.beach.popularity}
-        />
-        <br />
-        <input type="submit" value="Edit Beach" />
-      </form>
-      <form onSubmit={props.submitComment}>
-        Leave A Comment: <input type="text" onChange={props.handleText} />
-        <input type="submit" value="Add comment" />
-        {/* <button
+      {props.creatureID !== props.beach._id ? (
+        <button
           onClick={(event) => {
-            props.handleDeleteComment(props.text);
+            props.toggleEdit(props.beach);
           }}
         >
-          Delete Comment
-        </button> */}
-        <br />
-      </form>
+          Edit Beach
+        </button>
+      ) : (
+        <button onClick={props.closeEdit}>Close</button>
+      )}
+      {props.creatureID === props.beach._id ? (
+        <form
+          onSubmit={(event) => {
+            props.handleUpdate(props.beach, event);
+          }}
+        >
+          Name: <input type="text" onChange={props.handleUpdateName} />
+          <br />
+          Image:
+          <input type="text" onChange={props.handleUpdateImage} />
+          <br />
+          Location:
+          <input type="text" onChange={props.handleUpdateLocation} />
+          <br />
+          Popularity:
+          <input type="text" onChange={props.handleUpdatePopularity} />
+          <br />
+          <input type="submit" value="Submit" />
+        </form>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
