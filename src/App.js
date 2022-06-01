@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import NewBeach from './components/newbeach'
 import ShowBeach from './components/showbeach'
+import ShowPage from './components/showpage'
 
 function App() {
   const lcl = `http://localhost:3000/`
@@ -20,6 +21,7 @@ function App() {
   const [updatePopularity, setUpdatePopularity] = useState()
   const [creatureID, setCreatureID] = useState()
   const [showForm, setShowForm] = useState()
+  const [displayShow, setDisplayShow] = useState()
   const [beach, setBeach] = useState([])
 
 //function to handle name input
@@ -115,33 +117,43 @@ function App() {
   }
 
   const toggleEdit = (beachData) =>{
+    if(creatureID === undefined){
     setCreatureID(beachData._id)
     setUpdateName()
     setUpdateImage()
     setUpdateLocation()
     setUpdatePopularity()
-  }
-
-  const closeEdit = () =>{
+  } else {
     setCreatureID()
+    }
   }
 
   const toggleForm = () =>{
+    if(showForm === true){
+      setShowForm(false)
+    } else {
     setShowForm(true)
+    }
   }
 
-  const closeForm = () =>{
-    setShowForm(false)
+  const show = () =>{
+    if(displayShow === true){
+      setDisplayShow(false)
+    } else {
+      setDisplayShow(true)
+    }
   }
 // Created newBeach component for adding beaches to the data base
   return (
     <>
-      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm} closeForm={closeForm}/>
+      {displayShow !== true ?
+      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show}/>}
+      {displayShow !== true ?
       <div className="flex-parent">
         {beach.map((beach)=>{
-          return <ShowBeach beach={beach} handleDelete={handleDelete} handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} handleUpdate={handleUpdate} handleUpdateName={handleUpdateName} handleUpdateImage={handleUpdateImage} handleUpdateLocation={handleUpdateLocation} handleUpdatePopularity={handleUpdatePopularity} creatureID={creatureID} toggleEdit={toggleEdit} closeEdit={closeEdit}/>
+          return <ShowBeach beach={beach} handleDelete={handleDelete} handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} handleUpdate={handleUpdate} handleUpdateName={handleUpdateName} handleUpdateImage={handleUpdateImage} handleUpdateLocation={handleUpdateLocation} handleUpdatePopularity={handleUpdatePopularity} creatureID={creatureID} toggleEdit={toggleEdit} show={show}/>
         })}
-      </div>
+      </div> : "" }
     </>
   );
 }
