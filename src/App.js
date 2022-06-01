@@ -14,6 +14,15 @@ function App() {
   const [image, setImage] = useState()
   const [location, setLocation] = useState()
   const [popularity, setPopularity] = useState()
+  const [updateName, setUpdateName] = useState()
+  const [updateImage, setUpdateImage] = useState()
+  const [updateLocation, setUpdateLocation] = useState()
+  const [updatePopularity, setUpdatePopularity] = useState()
+
+
+  const [index, setIndex] = useState(0)
+  const [creatureID, setCreatureID] = useState()
+  const [showForm, setShowForm] = useState()
   const [beach, setBeach] = useState([])
 
 //function to handle name input
@@ -36,9 +45,30 @@ function App() {
     setPopularity(event.target.value)
   }
 
+  //function to handle name input
+    const handleUpdateName = (event) =>{
+      setUpdateName(event.target.value)
+    }
+
+  //function to handle image input
+    const handleUpdateImage = (event) =>{
+      setUpdateImage(event.target.value)
+    }
+
+  //function to handle location input
+    const handleUpdateLocation = (event) =>{
+      setUpdateLocation(event.target.value)
+    }
+
+  //function to handle popularity input
+    const handleUpdatePopularity = (event) =>{
+      setUpdatePopularity(event.target.value)
+    }
+
+
 //this displays our database on page load
   useEffect(()=>{
-    axios.get(hrk).then((response)=>{
+    axios.get(lcl).then((response)=>{
       setBeach(response.data)
     })
   },[])
@@ -46,13 +76,15 @@ function App() {
 //lets users add new beaches
   const submitBeach = (event) =>{
     event.preventDefault()
-    axios.post(hrk, {
+    setIndex(index+1)
+    axios.post(lcl, {
       name:name,
       image:image,
       location:location,
-      popularity:popularity
+      popularity:popularity,
+      index:index
     }).then(()=>{
-      axios.get(hrk).then((response)=>{
+      axios.get(lcl).then((response)=>{
         setBeach(response.data)
       })
     })
@@ -62,8 +94,8 @@ function App() {
   const handleDelete = (beachData) =>{
     const lclID = `http://localhost:3000/${beachData._id}`
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`
-    axios.delete(hrkID).then(()=>{
-      axios.get(hrk).then((response)=>{
+    axios.delete(lclID).then(()=>{
+      axios.get(lcl).then((response)=>{
         setBeach(response.data)
       })
     })
@@ -73,25 +105,41 @@ function App() {
     const lclID = `http://localhost:3000/${beachData._id}`
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`
     event.preventDefault()
-    axios.put(hrkID ,{
-      name:name,
-      image:image,
-      location:location,
-      popularity:popularity
+    setCreatureID()
+    axios.put(lclID ,{
+      name:updateName,
+      image:updateImage,
+      location:updateLocation,
+      popularity:updatePopularity
     }).then(()=>{
-      axios.get(hrk).then((response)=>{
+      axios.get(lcl).then((response)=>{
         setBeach(response.data)
       })
     })
   }
 
+  const toggleEdit = (beachData) =>{
+    setCreatureID(beachData._id)
+    setUpdateName()
+    setUpdateImage()
+    setUpdateLocation()
+    setUpdatePopularity()
+  }
+
+  const closeEdit = () =>{
+    setCreatureID()
+  }
+
+  const toggleForm = () =>{
+    setShowForm(true)
+  }
 // Created newBeach component for adding beaches to the data base
   return (
     <>
-      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach}/>
+      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/>
       <div className="flex-parent">
         {beach.map((beach)=>{
-          return <ShowBeach beach={beach} handleDelete={handleDelete} handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} handleUpdate={handleUpdate}/>
+          return <ShowBeach beach={beach} handleDelete={handleDelete} handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} handleUpdate={handleUpdate} handleUpdateName={handleUpdateName} handleUpdateImage={handleUpdateImage} handleUpdateLocation={handleUpdateLocation} handleUpdatePopularity={handleUpdatePopularity} index={index} creatureID={creatureID} toggleEdit={toggleEdit} closeEdit={closeEdit}/>
         })}
       </div>
     </>
