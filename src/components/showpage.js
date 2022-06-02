@@ -1,7 +1,9 @@
 const ShowPage = (props) =>{
   return(
     <div>
-    <img src ={props.showData.image[0]}/>
+    <img className="show-image" src ={props.showData.image[props.index]}/>
+    <button onClick={()=>{props.photoBackwards(props.showData)}}>Previous</button>
+    <button onClick={()=>{props.photoForward(props.showData)}}>Next</button>
     <form onSubmit={(event)=>{props.addImage(event, props.showData)}}>
     Add Photo:<input type="text" onChange={props.handleAddImage}/>
     <input type="submit"/>
