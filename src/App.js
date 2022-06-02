@@ -24,6 +24,7 @@ function App() {
   const [displayShow, setDisplayShow] = useState()
   const [beach, setBeach] = useState([])
   const [showData, setShowData] = useState()
+  const [addPhoto, setAddphoto] =useState()
 
 //function to handle name input
   const handleName = (event) =>{
@@ -65,10 +66,12 @@ function App() {
       setUpdatePopularity(event.target.value)
     }
 
-
+    const handleAddImage = (event) =>{
+      setAddphoto(event.target.value)
+    }
 //this displays our database on page load
   useEffect(()=>{
-    axios.get(hrk).then((response)=>{
+    axios.get(lcl).then((response)=>{
       console.log(response.data)
       setBeach(response.data)
     })
@@ -78,13 +81,13 @@ function App() {
   const submitBeach = (event) =>{
     event.preventDefault()
     setShowForm(false)
-    axios.post(hrk, {
+    axios.post(lcl, {
       name:name,
       image:image,
       location:location,
       popularity:popularity
     }).then(()=>{
-      axios.get(hrk).then((response)=>{
+      axios.get(lcl).then((response)=>{
         setBeach(response.data)
       })
     })
@@ -94,8 +97,8 @@ function App() {
   const handleDelete = (beachData) =>{
     const lclID = `http://localhost:3000/${beachData._id}`
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`
-    axios.delete(hrkID).then(()=>{
-      axios.get(hrk).then((response)=>{
+    axios.delete(lclID).then(()=>{
+      axios.get(lcl).then((response)=>{
         setBeach(response.data)
       })
     })
@@ -109,13 +112,13 @@ function App() {
     if(updateName === ""){
       setUpdateName(undefined)
     }
-    axios.put(hrkID ,{
+    axios.put(lclID ,{
       name:updateName,
       image:updateImage,
       location:updateLocation,
       popularity:updatePopularity
     }).then(()=>{
-      axios.get(hrk).then((response)=>{
+      axios.get(lcl).then((response)=>{
         setBeach(response.data)
       })
     })
@@ -149,11 +152,24 @@ function App() {
       setDisplayShow(true)
     }
   }
+
+  const addImage = (event, beachData) =>{
+    const lclID = `http://localhost:3000/photo/${beachData._id}/`
+    const hrkID = `https://mysterious-meadow-36213.herokuapp.com/photo/${beachData._id}/`
+    event.preventDefault()
+    axios.put(lclID , {
+      image:addPhoto
+    }).then(()=>{
+      axios.get(lcl).then((response)=>{
+        setBeach(response.data)
+      })
+    })
+  }
 // Created newBeach component for adding beaches to the data base
   return (
     <>
       {displayShow !== true ?
-      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show} showData={showData}/>}
+      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show} showData={showData} handleAddImage={handleAddImage} addImage={addImage}/>}
       {displayShow !== true ?
       <div className="flex-parent">
         {beach.map((beach)=>{
