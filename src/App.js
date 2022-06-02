@@ -105,6 +105,9 @@ function App() {
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`
     event.preventDefault()
     setCreatureID()
+    if(updateName === ""){
+      setUpdateName(undefined)
+    }
     axios.put(hrkID ,{
       name:updateName,
       image:updateImage,
