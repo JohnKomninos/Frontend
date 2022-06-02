@@ -69,6 +69,7 @@ function App() {
 //this displays our database on page load
   useEffect(()=>{
     axios.get(hrk).then((response)=>{
+      console.log(response.data)
       setBeach(response.data)
     })
   },[])

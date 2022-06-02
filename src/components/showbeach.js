@@ -3,7 +3,7 @@ const ShowBeach = (props) =>{
   return(
     <div className="child-div">
       Name:{props.beach.name}<br/>
-      <img className="display-image" onClick={(event)=>{props.show(props.beach)}} src={props.beach.image}/><br/>
+      <img className="display-image" onClick={(event)=>{props.show(props.beach)}} src={props.beach.image[0]}/><br/>
       location:{props.beach.location}<br/>
       Popularity:{props.beach.popularity}<br/>
       <button onClick={(event)=>{props.handleDelete(props.beach)}}>Remove Beach</button>
