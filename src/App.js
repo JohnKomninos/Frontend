@@ -71,7 +71,7 @@ function App() {
     }
 //this displays our database on page load
   useEffect(()=>{
-    axios.get(lcl).then((response)=>{
+    axios.get(hrk).then((response)=>{
       console.log(response.data)
       setBeach(response.data)
     })
@@ -81,13 +81,13 @@ function App() {
   const submitBeach = (event) =>{
     event.preventDefault()
     setShowForm(false)
-    axios.post(lcl, {
+    axios.post(hrk, {
       name:name,
       image:image,
       location:location,
       popularity:popularity
     }).then(()=>{
-      axios.get(lcl).then((response)=>{
+      axios.get(hrk).then((response)=>{
         setBeach(response.data)
       })
     })
@@ -97,8 +97,8 @@ function App() {
   const handleDelete = (beachData) =>{
     const lclID = `http://localhost:3000/${beachData._id}`
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`
-    axios.delete(lclID).then(()=>{
-      axios.get(lcl).then((response)=>{
+    axios.delete(hrkID).then(()=>{
+      axios.get(hrk).then((response)=>{
         setBeach(response.data)
       })
     })
@@ -112,13 +112,13 @@ function App() {
     if(updateName === ""){
       setUpdateName(undefined)
     }
-    axios.put(lclID ,{
+    axios.put(hrkID ,{
       name:updateName,
       image:updateImage,
       location:updateLocation,
       popularity:updatePopularity
     }).then(()=>{
-      axios.get(lcl).then((response)=>{
+      axios.get(hrk).then((response)=>{
         setBeach(response.data)
       })
     })
@@ -157,10 +157,10 @@ function App() {
     const lclID = `http://localhost:3000/photo/${beachData._id}/`
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/photo/${beachData._id}/`
     event.preventDefault()
-    axios.put(lclID , {
+    axios.put(hrkID , {
       image:addPhoto
     }).then(()=>{
-      axios.get(lcl).then((response)=>{
+      axios.get(hrk).then((response)=>{
         setBeach(response.data)
       })
     })
