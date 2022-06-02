@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import NewBeach from "./components/newbeach";
 import ShowBeach from "./components/showbeach";
-// import NewComment from "./components/newComment";
+import ShowPage from "./components/showpage";
 
 function App() {
   const lcl = `http://localhost:3000/`;
@@ -19,11 +19,11 @@ function App() {
   const [updateImage, setUpdateImage] = useState();
   const [updateLocation, setUpdateLocation] = useState();
   const [updatePopularity, setUpdatePopularity] = useState();
-
-  const [index, setIndex] = useState(0);
   const [creatureID, setCreatureID] = useState();
   const [showForm, setShowForm] = useState();
+  const [displayShow, setDisplayShow] = useState();
   const [beach, setBeach] = useState([]);
+  const [showData, setShowData] = useState();
 
   //function to handle name input
   const handleName = (event) => {
@@ -46,18 +46,18 @@ function App() {
   };
 
   //function to handle name input
-  const handleUpdateName = (event) => {
-    setUpdateName(event.target.value);
+  const handleName = (event) => {
+    setName(event.target.value);
   };
 
   //function to handle image input
-  const handleUpdateImage = (event) => {
-    setUpdateImage(event.target.value);
+  const handleImage = (event) => {
+    setImage(event.target.value);
   };
 
   //function to handle location input
-  const handleUpdateLocation = (event) => {
-    setUpdateLocation(event.target.value);
+  const handleLocation = (event) => {
+    setLocation(event.target.value);
   };
 
   //function to handle popularity input
@@ -67,7 +67,8 @@ function App() {
 
   //this displays our database on page load
   useEffect(() => {
-    axios.get(lcl).then((response) => {
+    axios.get(hrk).then((response) => {
+      console.log(response.data);
       setBeach(response.data);
     });
   }, []);
@@ -75,17 +76,16 @@ function App() {
   //lets users add new beaches
   const submitBeach = (event) => {
     event.preventDefault();
-    setIndex(index + 1);
+    setShowForm(false);
     axios
-      .post(lcl, {
+      .post(hrk, {
         name: name,
         image: image,
         location: location,
         popularity: popularity,
-        index: index,
       })
       .then(() => {
-        axios.get(lcl).then((response) => {
+        axios.get(hrk).then((response) => {
           setBeach(response.data);
         });
       });
@@ -95,8 +95,8 @@ function App() {
   const handleDelete = (beachData) => {
     const lclID = `http://localhost:3000/${beachData._id}`;
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`;
-    axios.delete(lclID).then(() => {
-      axios.get(lcl).then((response) => {
+    axios.delete(hrkID).then(() => {
+      axios.get(hrk).then((response) => {
         setBeach(response.data);
       });
     });
@@ -107,15 +107,18 @@ function App() {
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`;
     event.preventDefault();
     setCreatureID();
+    if (updateName === "") {
+      setUpdateName(undefined);
+    }
     axios
-      .put(lclID, {
+      .put(hrkID, {
         name: updateName,
         image: updateImage,
         location: updateLocation,
         popularity: updatePopularity,
       })
       .then(() => {
-        axios.get(lcl).then((response) => {
+        axios.get(hrk).then((response) => {
           setBeach(response.data);
         });
       });
@@ -134,43 +137,64 @@ function App() {
   };
 
   const toggleForm = () => {
-    setShowForm(true);
+    if (showForm === true) {
+      setShowForm(false);
+    } else {
+      setShowForm(true);
+    }
+  };
+
+  const show = (beachData) => {
+    setShowData(beachData);
+    if (displayShow === true) {
+      setDisplayShow(false);
+    } else {
+      setDisplayShow(true);
+    }
   };
   // Created newBeach component for adding beaches to the data base
   return (
     <>
-      <NewBeach
-        handleName={handleName}
-        handleImage={handleImage}
-        handleLocation={handleLocation}
-        handlePopularity={handlePopularity}
-        submitBeach={submitBeach}
-        toggleForm={toggleForm}
-        showForm={showForm}
-      />
-      <div className="flex-parent">
-        {beach.map((beach) => {
-          return (
-            <ShowBeach
-              beach={beach}
-              handleDelete={handleDelete}
-              handleName={handleName}
-              handleImage={handleImage}
-              handleLocation={handleLocation}
-              handlePopularity={handlePopularity}
-              handleUpdate={handleUpdate}
-              handleUpdateName={handleUpdateName}
-              handleUpdateImage={handleUpdateImage}
-              handleUpdateLocation={handleUpdateLocation}
-              handleUpdatePopularity={handleUpdatePopularity}
-              index={index}
-              creatureID={creatureID}
-              toggleEdit={toggleEdit}
-              closeEdit={closeEdit}
-            />
-          );
-        })}
-      </div>
+      {displayShow !== true ? (
+        <NewBeach
+          handleName={handleName}
+          handleImage={handleImage}
+          handleLocation={handleLocation}
+          handlePopularity={handlePopularity}
+          submitBeach={submitBeach}
+          toggleForm={toggleForm}
+          showForm={showForm}
+        />
+      ) : (
+        <ShowPage show={show} showData={showData} />
+      )}
+      {displayShow !== true ? (
+        <div className="flex-parent">
+          {beach.map((beach) => {
+            return (
+              <ShowBeach
+                beach={beach}
+                handleDelete={handleDelete}
+                handleName={handleName}
+                handleImage={handleImage}
+                handleLocation={handleLocation}
+                handlePopularity={handlePopularity}
+                handleUpdate={handleUpdate}
+                handleUpdateName={handleUpdateName}
+                handleUpdateImage={handleUpdateImage}
+                handleUpdateLocation={handleUpdateLocation}
+                handleUpdatePopularity={handleUpdatePopularity}
+                creatureID={creatureID}
+                toggleEdit={toggleEdit}
+                closeEdit={closeEdit}
+                show={show}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }
