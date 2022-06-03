@@ -1,9 +1,12 @@
 
 const ShowBeach = (props) =>{
   return(
-    <div className="child-div">
+    <div className="container">
+      <div className="image-container">
+      <img onClick={(event)=>{props.show(props.beach)}} src={props.beach.image[0]}/><br/>
+      </div>
+      <div className="text">
       Name:{props.beach.name}<br/>
-      <img className="display-image" onClick={(event)=>{props.show(props.beach)}} src={props.beach.image[0]}/><br/>
       location:{props.beach.location}<br/>
       Popularity:{props.beach.popularity}<br/>
       <button onClick={(event)=>{props.handleDelete(props.beach)}}>Remove Beach</button>
@@ -17,6 +20,7 @@ const ShowBeach = (props) =>{
           Popularity:<input type ="text" onChange={props.handleUpdatePopularity}/><br/>
         <input type="submit" value="Submit"/>
       </form> : ""}
+      </div>
     </div>
   )
 }

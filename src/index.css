@@ -12,24 +12,35 @@ code {
     monospace;
 }
 
-.flex-parent{
-  width:100%;
+body {
+  background-color: rgb(215, 213, 213);
+}
+.container {
+  background-color: white;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-evenly;
+  flex-direction: row;
+  width: auto;
+  border: 5px solid lightgrey;
+  margin: 5em;
+  padding: 3em;
 }
-
-.child-div{
-  width:30%;
-  border:2px solid gold;
+.container > .image {
+  flex: 1 0 0%;
+  text-align: left;
 }
-
-.display-image{
-  width:100%;
-  height:150px
+.image > img {
+  vertical-align: top; /* here */
+  width:200px;
+  height:250px;
+  padding: 1em;
+  overflow: hidden;
 }
-
-.show-image{
-  height:500px
+.text {
+  flex: 2 0 0%;
+  padding: 1em;
+  /* and eventually */
+  margin: auto 0;
+}
+.show-image {
+  height: 500px;
 }
