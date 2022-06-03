@@ -7,6 +7,7 @@ import ShowBeach from "./components/showbeach";
 import ShowPage from "./components/showpage";
 
 function App() {
+<<<<<<< HEAD
   const lcl = `http://localhost:3000/`;
   const hrk = `https://mysterious-meadow-36213.herokuapp.com/`;
 
@@ -24,6 +25,46 @@ function App() {
   const [displayShow, setDisplayShow] = useState();
   const [beach, setBeach] = useState([]);
   const [showData, setShowData] = useState();
+=======
+  const lcl = `http://localhost:3000/`
+  const hrk = `https://mysterious-meadow-36213.herokuapp.com/`
+
+//setting all the states
+  const [name, setName] = useState()
+  const [image, setImage] = useState()
+  const [location, setLocation] = useState()
+  const [popularity, setPopularity] = useState()
+  const [updateName, setUpdateName] = useState()
+  const [updateImage, setUpdateImage] = useState()
+  const [updateLocation, setUpdateLocation] = useState()
+  const [updatePopularity, setUpdatePopularity] = useState()
+  const [creatureID, setCreatureID] = useState()
+  const [showForm, setShowForm] = useState()
+  const [displayShow, setDisplayShow] = useState()
+  const [beach, setBeach] = useState([])
+  const [showData, setShowData] = useState()
+  const [addPhoto, setAddphoto] =useState()
+  const [index, setIndex] = useState(0)
+//function to handle name input
+  const handleName = (event) =>{
+    setName(event.target.value)
+  }
+
+//function to handle image input
+  const handleImage = (event) =>{
+    setImage(event.target.value)
+  }
+
+//function to handle location input
+  const handleLocation = (event) =>{
+    setLocation(event.target.value)
+  }
+
+//function to handle popularity input
+  const handlePopularity = (event) =>{
+    setPopularity(event.target.value)
+  }
+>>>>>>> 2c278e6d99e4f4e683f23b7d0abbe56325c040ac
 
   //function to handle name input
   const handleName = (event) => {
@@ -45,6 +86,7 @@ function App() {
     setPopularity(event.target.value);
   };
 
+<<<<<<< HEAD
   //function to handle name input
   const handleUpdateName = (event) => {
     setName(event.target.value);
@@ -83,6 +125,41 @@ function App() {
         image: image,
         location: location,
         popularity: popularity,
+=======
+    const handleAddImage = (event) =>{
+      setAddphoto(event.target.value)
+    }
+//this displays our database on page load
+  useEffect(()=>{
+    axios.get(hrk).then((response)=>{
+      setBeach(response.data)
+    })
+  },[])
+
+//lets users add new beaches
+  const submitBeach = (event) =>{
+    event.preventDefault()
+    setShowForm(false)
+    axios.post(hrk, {
+      name:name,
+      image:image,
+      location:location,
+      popularity:popularity
+    }).then(()=>{
+      axios.get(hrk).then((response)=>{
+        setBeach(response.data)
+      })
+    })
+  }
+
+//lets users delete beaches
+  const handleDelete = (beachData) =>{
+    const lclID = `http://localhost:3000/${beachData._id}`
+    const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`
+    axios.delete(hrkID).then(()=>{
+      axios.get(hrk).then((response)=>{
+        setBeach(response.data)
+>>>>>>> 2c278e6d99e4f4e683f23b7d0abbe56325c040ac
       })
       .then(() => {
         axios.get(hrk).then((response) => {
@@ -144,17 +221,59 @@ function App() {
     }
   };
 
+<<<<<<< HEAD
   const show = (beachData) => {
     setShowData(beachData);
     if (displayShow === true) {
       setDisplayShow(false);
     } else {
       setDisplayShow(true);
+=======
+  const show = (beachData) =>{
+    setShowData(beachData)
+    setIndex(0)
+    if(displayShow === true){
+      setDisplayShow(false)
+    } else {
+      setDisplayShow(true)
+    } axios.get(hrk).then((response)=>{
+      setBeach(response.data)
+    })
+  }
+
+  const addImage = (event, beachData) =>{
+    const lclID = `http://localhost:3000/photo/${beachData._id}/`
+    const hrkID = `https://mysterious-meadow-36213.herokuapp.com/photo/${beachData._id}/`
+    event.preventDefault()
+    event.currentTarget.reset()
+    axios.put(hrkID , {
+      image:addPhoto
+    }).then(()=>{
+      axios.get(hrkID).then((response)=>{
+        setShowData(response.data[0])
+        // console.log(response.data)
+      })
+    })
+  }
+
+  const photoForward = (beachData) =>{
+    setIndex(index+1)
+    if(index>=beachData.image.length-1){
+      setIndex(0)
+    }
+  }
+
+  const photoBackwards = (beachData) =>{
+    setIndex(index-1)
+    if(index<=0){
+      setIndex(beachData.image.length-1)
+>>>>>>> 2c278e6d99e4f4e683f23b7d0abbe56325c040ac
     }
   };
   // Created newBeach component for adding beaches to the data base
   return (
     <>
+<<<<<<< HEAD
       {displayShow !== true ? (
         <NewBeach
           handleName={handleName}
@@ -195,6 +314,16 @@ function App() {
       ) : (
         ""
       )}
+=======
+      {displayShow !== true ?
+      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show} showData={showData} handleAddImage={handleAddImage} addImage={addImage} index={index} photoForward={photoForward} photoBackwards={photoBackwards}/>}
+      {displayShow !== true ?
+      <div className="flex-parent">
+        {beach.map((beach)=>{
+          return <ShowBeach beach={beach} handleDelete={handleDelete} handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} handleUpdate={handleUpdate} handleUpdateName={handleUpdateName} handleUpdateImage={handleUpdateImage} handleUpdateLocation={handleUpdateLocation} handleUpdatePopularity={handleUpdatePopularity} creatureID={creatureID} toggleEdit={toggleEdit} closeEdit={closeEdit} show={show}/>
+        })}
+      </div> : "" }
+>>>>>>> 2c278e6d99e4f4e683f23b7d0abbe56325c040ac
     </>
   );
 }
