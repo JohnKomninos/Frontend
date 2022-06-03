@@ -26,6 +26,7 @@ function App() {
   const [showData, setShowData] = useState()
   const [addPhoto, setAddphoto] =useState()
   const [index, setIndex] = useState(0)
+  const [currentPhoto, setCurrentPhoto] = useState(0)
 //function to handle name input
   const handleName = (event) =>{
     setName(event.target.value)
@@ -183,11 +184,24 @@ function App() {
       setIndex(beachData.image.length-1)
     }
   }
+
+  const deletePhoto = (beachData) =>{
+    const lclID = `http://localhost:3000/photo/${beachData._id}/`
+    const hrkID = `https://mysterious-meadow-36213.herokuapp.com/photo/${beachData._id}/`
+    const removePhoto = beachData.image[index]
+    axios.delete(hrkID,{
+      image:removePhoto
+    }).then(()=>{
+      axios.get(hrkID).then((response)=>{
+        setShowData(response.data[0])
+      })
+    })
+  }
 // Created newBeach component for adding beaches to the data base
   return (
     <>
       {displayShow !== true ?
-      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show} showData={showData} handleAddImage={handleAddImage} addImage={addImage} index={index} photoForward={photoForward} photoBackwards={photoBackwards}/>}
+      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show} showData={showData} handleAddImage={handleAddImage} addImage={addImage} index={index} photoForward={photoForward} photoBackwards={photoBackwards} deletePhoto={deletePhoto}/>}
       {displayShow !== true ?
       <div className="flex-parent">
         {beach.map((beach)=>{
