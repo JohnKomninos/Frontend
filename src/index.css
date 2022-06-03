@@ -12,20 +12,55 @@ code {
     monospace;
 }
 
-.flex-parent {
+/* .flex-parent {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: space-evenly;
-}
+} */
 
-.child-div {
+/* .child-div {
   width: 30%;
   border: 2px solid gold;
-}
+} */
 
-.display-image {
+/* .display-image {
   width: 100%;
   height: 150px;
+} */
+body {
+  background-color: rgb(215, 213, 213);
+}
+
+.container {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  border: 5px solid lightgrey;
+  margin: 5em;
+  padding: 3em;
+}
+.container > .image {
+  flex: 1 0 0%;
+  text-align: left;
+}
+.image > img {
+  vertical-align: top; /* here */
+  max-width: 300px;
+  max-height: 300px;
+  padding: 1em;
+  overflow: hidden;
+}
+.text {
+  flex: 2 0 0%;
+  padding: 1em;
+  /* and eventually */
+
+  margin: auto 0;
+}
+
+.show-image {
+  height: 500px;
 }

@@ -46,17 +46,17 @@ function App() {
   };
 
   //function to handle name input
-  const handleName = (event) => {
+  const handleUpdateName = (event) => {
     setName(event.target.value);
   };
 
   //function to handle image input
-  const handleImage = (event) => {
+  const handleUpdateImage = (event) => {
     setImage(event.target.value);
   };
 
   //function to handle location input
-  const handleLocation = (event) => {
+  const handleUpdateLocation = (event) => {
     setLocation(event.target.value);
   };
 
