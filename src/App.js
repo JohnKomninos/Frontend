@@ -26,7 +26,6 @@ function App() {
   const [showData, setShowData] = useState()
   const [addPhoto, setAddphoto] =useState()
   const [index, setIndex] = useState(0)
-  const [currentPhoto, setCurrentPhoto] = useState(0)
 //function to handle name input
   const handleName = (event) =>{
     setName(event.target.value)
@@ -185,18 +184,25 @@ function App() {
     }
   }
 
-  const deletePhoto = (beachData) =>{
-    const lclID = `http://localhost:3000/photo/${beachData._id}/`
-    const hrkID = `https://mysterious-meadow-36213.herokuapp.com/photo/${beachData._id}/`
+  const deletePhoto = (beachData) => {
+    const lclID = `http://localhost:3000/removephoto/${beachData._id}/`
+    const hrkID = `https://mysterious-meadow-36213.herokuapp.com/removephoto/${beachData._id}/`
     const removePhoto = beachData.image[index]
-    axios.delete(hrkID,{
+    // console.log(beachData._id)
+    // console.log(removePhoto)
+    axios.put(hrkID , {
       image:removePhoto
     }).then(()=>{
       axios.get(hrkID).then((response)=>{
         setShowData(response.data[0])
+        if(index>response.data[0].image.length-1){
+          setIndex(0)
+        }
       })
     })
   }
+
+
 // Created newBeach component for adding beaches to the data base
   return (
     <>
