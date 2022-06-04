@@ -9,7 +9,17 @@ const ShowPage = (props) =>{
     Add Photo:<input type="text" onChange={props.handleAddImage}/>
     <input type="submit"/>
     </form>
-      <button onClick={props.show}>Back</button>
+    <button onClick={props.show}>Back</button>
+    <form onSubmit={(event)=>{props.addReview(event, props.showData)}}>
+    Add Comment:<input type="text" onChange={props.handleAddComment}/>
+    <input type="submit"/>
+    </form>
+    {props.showCommentData.map((comment)=>{
+      return( <div>
+      {comment}
+      <button onClick={(event)=>{props.deleteComment(props.showData , comment)}}>Delete comment</button>
+      </div>)
+    })}
     </div>
   )
 }

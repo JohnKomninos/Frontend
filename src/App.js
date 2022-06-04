@@ -24,8 +24,10 @@ function App() {
   const [displayShow, setDisplayShow] = useState()
   const [beach, setBeach] = useState([])
   const [showData, setShowData] = useState()
+  const [showCommentData, setShowCommentData] = useState()
   const [addPhoto, setAddphoto] =useState()
   const [index, setIndex] = useState(0)
+  const [addComment, setAddComment] = useState()
 //function to handle name input
   const handleName = (event) =>{
     setName(event.target.value)
@@ -68,6 +70,10 @@ function App() {
 
     const handleAddImage = (event) =>{
       setAddphoto(event.target.value)
+    }
+
+    const handleAddComment = (event) =>{
+      setAddComment(event.target.value)
     }
 //this displays our database on page load
   useEffect(()=>{
@@ -145,6 +151,7 @@ function App() {
 
   const show = (beachData) =>{
     setShowData(beachData)
+    setShowCommentData(beachData.comments)
     setIndex(0)
     if(displayShow === true){
       setDisplayShow(false)
@@ -184,6 +191,21 @@ function App() {
     }
   }
 
+  const addReview = (event, beachData) =>{
+    const lclID = `http://localhost:3000/comment/${beachData._id}/`
+    const hrkID = `https://mysterious-meadow-36213.herokuapp.com/comment/${beachData._id}/`
+    event.preventDefault()
+    event.currentTarget.reset()
+    axios.put(hrkID, {
+      comments:addComment
+    }).then(()=>{
+      axios.get(hrkID).then((response)=>{
+        setShowData(response.data[0])
+        setShowCommentData(response.data[0].comments)
+      })
+    })
+  }
+
   const deletePhoto = (beachData) => {
     const lclID = `http://localhost:3000/removephoto/${beachData._id}/`
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/removephoto/${beachData._id}/`
@@ -202,12 +224,23 @@ function App() {
     })
   }
 
+  const deleteComment = (beachData , comment) => {
+    const lclID = `http://localhost:3000/removecomment/${beachData._id}/`
+    const hrkID = `https://mysterious-meadow-36213.herokuapp.com/removecomment/${beachData._id}/`
+    axios.put(hrkID, {
+      comments:comment
+    }).then(()=>{
+      axios.get(hrkID).then((response)=>{
+        setShowCommentData(response.data[0].comments)
+      })
+    })
+  }
 
 // Created newBeach component for adding beaches to the data base
   return (
     <>
       {displayShow !== true ?
-      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show} showData={showData} handleAddImage={handleAddImage} addImage={addImage} index={index} photoForward={photoForward} photoBackwards={photoBackwards} deletePhoto={deletePhoto}/>}
+      <NewBeach handleName={handleName} handleImage={handleImage} handleLocation={handleLocation} handlePopularity={handlePopularity} submitBeach={submitBeach} toggleForm={toggleForm} showForm={showForm}/> : <ShowPage show={show} showData={showData} showCommentData={showCommentData} handleAddImage={handleAddImage} addImage={addImage} index={index} photoForward={photoForward} photoBackwards={photoBackwards} deletePhoto={deletePhoto} handleAddComment={handleAddComment} addReview={addReview} deleteComment={deleteComment}/>}
       {displayShow !== true ?
       <div className="flex-parent">
         {beach.map((beach)=>{
