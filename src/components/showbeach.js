@@ -3,19 +3,38 @@ const ShowBeach = (props) => {
     <div className="container">
       <div className="image-container">
         <img
+          className="img"
           onClick={(event) => {
             props.show(props.beach);
           }}
           src={props.beach.image[0]}
-        ></img>
+        />
+        <br />
       </div>
+
       <div className="text">
         <h3>
           Name:{props.beach.name}
           <br />{" "}
         </h3>
-        <p>location:{props.beach.location}</p>
-        <p>Popularity:{props.beach.popularity}</p>
+        <p className="p-text">
+          {" "}
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat.
+        </p>
+        <h3>
+          location:
+          {props.beach.location}
+          <br />
+        </h3>
+
+        <h3>
+          Popularity:{props.beach.popularity}
+          <br />{" "}
+        </h3>
+
         <button
           onClick={(event) => {
             props.handleDelete(props.beach);
