@@ -65,7 +65,7 @@ body {
 }
 .show-image {
   height: 500px;
-  margin: 0 20px;
+  /* margin: 0 20px; */
 }
 .prev-next-btn {
   display: flex;

@@ -1,7 +1,9 @@
 const ShowPage = (props) => {
   return (
     <div>
+    <div className="hello">
       <img className="show-image" src={props.showData.image[props.index]} />
+    </div>
       <button
         onClick={() => {
           props.photoBackwards(props.showData);
