@@ -1,7 +1,11 @@
 const NewBeach = (props) => {
   return (
     <div>
-      <nav> Healthy Travel Tips</nav>
+      <nav>
+        <a className="nav" href="#">
+          Healthy Travel Tips
+        </a>
+      </nav>
       <header className="header">
         <h1> Beaches around the World</h1>
         <p className="intro">
