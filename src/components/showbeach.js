@@ -13,12 +13,13 @@ const ShowBeach = (props) => {
       </div>
 
       <div className="text">
+      {props.creatureID !== props.beach._id ? (
+      <span>
         <h3>
           Name:{props.beach.name}
-          <br />{" "}
+          <br />
         </h3>
         <p className="p-text">
-          {" "}
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -32,7 +33,7 @@ const ShowBeach = (props) => {
 
         <h3>
           Popularity:{props.beach.popularity}
-          <br />{" "}
+          <br />
         </h3>
 
         <button
@@ -42,6 +43,7 @@ const ShowBeach = (props) => {
         >
           Remove Beach
         </button>
+        </span>) : ""}
         {props.creatureID !== props.beach._id ? (
           <button
             onClick={(event) => {
@@ -59,16 +61,13 @@ const ShowBeach = (props) => {
               props.handleUpdate(props.beach, event);
             }}
           >
-            Name: <input type="text" onChange={props.handleUpdateName} />
+            <input className="input" type="text" onChange={props.handleUpdateName} placeholder={props.beach.name} />
             <br />
-            Image:
-            <input type="text" onChange={props.handleUpdateImage} />
+            <input className="input" type="text" onChange={props.handleUpdateImage} placeholder="image" />
             <br />
-            Location:
-            <input type="text" onChange={props.handleUpdateLocation} />
+            <input className="input" type="text" onChange={props.handleUpdateLocation} placeholder={props.beach.location} />
             <br />
-            Popularity:
-            <input type="text" onChange={props.handleUpdatePopularity} />
+            <input className="input" type="text" onChange={props.handleUpdatePopularity} placeholder={props.beach.popularity} />
             <br />
             <input type="submit" value="Submit" />
           </form>

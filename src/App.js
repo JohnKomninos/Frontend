@@ -30,6 +30,7 @@ function App() {
   const [index, setIndex] = useState(0);
   const [addComment, setAddComment] = useState();
 
+
   //function to handle name input
   const handleName = (event) => {
     setName(event.target.value);
