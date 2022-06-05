@@ -1,19 +1,34 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+@import url("https://fonts.googleapis.com/css2?family=Secular+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arapey&display=swap");
 
 body {
-  background-color: rgb(215, 213, 213);
+  /* font-family: "Secular One", sans-serif; */
+  font-family: "Arapey", serif;
+
+  background-color: rgb(232, 232, 232);
+}
+.header {
+  background-color: white;
+  display: block;
+  height: 300px;
+  text-align: left;
+  padding: 3em;
+}
+.intro {
+  font-family: "Arapey", serif;
 }
 .container {
   background-color: white;
@@ -22,25 +37,120 @@ body {
   width: auto;
   border: 5px solid lightgrey;
   margin: 5em;
-  padding: 3em;
+  padding: 1em;
+  align-items: center;
+  justify-content: center;
 }
-.container > .image {
+.image-container {
   flex: 1 0 0%;
   text-align: left;
+  height: 50%;
 }
-.image > img {
+.img {
   vertical-align: top; /* here */
-  width:200px;
-  height:250px;
+  width: 350px;
+  height: 200px;
   padding: 1em;
   overflow: hidden;
 }
 .text {
   flex: 2 0 0%;
   padding: 1em;
-  /* and eventually */
+  height: 250px;
+  font-family: "Arapey", serif;
   margin: auto 0;
+}
+.p-text {
+  font-family: "Arapey", serif;
 }
 .show-image {
   height: 500px;
+  /* margin: 0 20px; */
+}
+.image-show {
+  width: 100%;
+  height: 900px;
+  display: flex;
+  flex-wrap: wrap;
+  /* border: 2px solid gold; */
+  align-content: space-evenly;
+}
+
+.child-div-image {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.show-btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.previous {
+  margin-right: 10px;
+}
+
+.next {
+}
+nav {
+  height: 40px;
+  background: dodgerblue;
+  color: aliceblue;
+  text-decoration: aliceblue;
+  text-decoration-style: solid;
+
+  font-weight: bold;
+  text-align: center;
+}
+.nav {
+  color: aliceblue;
+  text-decoration: none;
+  align-items: centers;
+}
+
+.addPhoto {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.delete-photo {
+  margin-left: 10px;
+}
+.addComment {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+.back {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.show-comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 200px;
+}
+.comment {
+  /* width: 100%; */
+  display: block;
+}
+.delete-comment {
+  margin-left: 10px;
+}
+
+.input {
+  margin: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.edit-form {
+  display: inline;
 }
