@@ -1,5 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import { useState, useEffect } from "react";
 import axios from "axios";
 import NewBeach from "./components/newbeach";
@@ -28,6 +29,7 @@ function App() {
   const [addPhoto, setAddphoto] = useState();
   const [index, setIndex] = useState(0);
   const [addComment, setAddComment] = useState();
+
 
   //function to handle name input
   const handleName = (event) => {

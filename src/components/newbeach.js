@@ -1,11 +1,7 @@
 const NewBeach = (props) => {
   return (
     <div>
-      <nav>
-        <a className="nav" href="#">
-          Healthy Travel Tips
-        </a>
-      </nav>
+      <nav> Healthy Travel Tips</nav>
       <header className="header">
         <h1> Beaches around the World</h1>
         <p className="intro">
@@ -32,28 +28,43 @@ const NewBeach = (props) => {
         </p>
       </header>
       {props.showForm !== true ? (
-        <button
-          type="button"
-          class="btn btn-primary btn-lg"
-          onClick={props.toggleForm}
-        >
-          Add Beach
-        </button>
+        <button onClick={props.toggleForm}>Add Beach</button>
       ) : (
         <button onClick={props.toggleForm}>Close</button>
       )}
       {props.showForm ? (
         <form onSubmit={props.submitBeach}>
-          Name: <input type="text" onChange={props.handleName} required />
+          <input
+            className="input"
+            type="text"
+            onChange={props.handleName}
+            placeholder="name"
+            required
+          />
           <br />
-          Image:
-          <input type="text" onChange={props.handleImage} required />
+          <input
+            className="input"
+            type="text"
+            onChange={props.handleImage}
+            placeholder="Image"
+            required
+          />
           <br />
-          Location:
-          <input type="text" onChange={props.handleLocation} required />
+          <input
+            className="input"
+            type="text"
+            onChange={props.handleLocation}
+            placeholder="Location"
+            required
+          />
           <br />
-          Popularity:
-          <input type="text" onChange={props.handlePopularity} required />
+          <input
+            className="input"
+            type="text"
+            onChange={props.handlePopularity}
+            placeholder="Popularity"
+            required
+          />
           <br />
           <input type="submit" value="submit" />
         </form>
