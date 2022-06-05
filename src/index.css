@@ -65,6 +65,10 @@ body {
 }
 .show-image {
   height: 500px;
+<<<<<<< HEAD
+  /* margin: 0 20px; */
+=======
+>>>>>>> deacf32b983ad29cd09a6dbc0bdb1e3b13905aef
 }
 .image-show {
   width: 100%;
