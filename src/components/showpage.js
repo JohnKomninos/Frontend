@@ -1,6 +1,9 @@
 const ShowPage = (props) => {
   return (
     <div>
+      <div className="back">
+        <button onClick={props.show}>Back</button>
+      </div>
       <div className="image-show">
         <div className="child-div-image">
           <img className="show-image" src={props.showData.image[props.index]} />{" "}
@@ -70,9 +73,6 @@ const ShowPage = (props) => {
               </div>
             );
           })}
-        </div>
-        <div className="back">
-          <button onClick={props.show}>Back</button>
         </div>
       </div>
     </div>
