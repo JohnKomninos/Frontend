@@ -65,21 +65,35 @@ body {
 }
 .show-image {
   height: 500px;
+<<<<<<< HEAD
   /* margin: 0 20px; */
+=======
+>>>>>>> deacf32b983ad29cd09a6dbc0bdb1e3b13905aef
 }
-.prev-next-btn {
+.image-show {
+  width: 100%;
+  height: 800px;
   display: flex;
-  padding: 10px;
-  justify-content: center;
-  flex-direction: row;
-}
-.Previous-btn {
-  padding: 10px;
-  margin-right: 16px;
+  flex-wrap: wrap;
+  border: 2px solid gold;
+  align-content: space-evenly;
 }
 
-.Next-btn {
-  padding: 20px;
+.child-div-image {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.show-btn {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.previous {
+  margin-right: 10px;
+}
+
+.next {
 }
 nav {
   height: 40px;
@@ -91,13 +105,54 @@ nav {
   font-weight: bold;
   text-align: center;
 }
+.nav {
+  color: aliceblue;
+  text-decoration: none;
+  align-items: centers;
+}
 
-.input{
+.addPhoto {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.delete-photo {
+  margin-left: 10px;
+}
+.addComment {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+.back {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.show-comment {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  /* padding: 10px; */
+}
+.comment {
+  /* width: 100%; */
+  display: block;
+}
+.delete-comment {
+  margin-left: 10px;
+}
+
+.input {
   margin: 5px;
   border-radius: 5px;
   text-align: center;
 }
 
-.edit-form{
-  display:inline;
+.edit-form {
+  display: inline;
 }
