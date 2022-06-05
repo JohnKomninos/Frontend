@@ -51,27 +51,27 @@ function App() {
     setPopularity(event.target.value);
   };
 
-  //function to handle name input
+  //function to handle name input for edit form
   const handleUpdateName = (event) => {
     setUpdateName(event.target.value);
   };
-  //function to handle image input
+  //function to handle image input for edit form
   const handleUpdateImage = (event) => {
     setUpdateImage(event.target.value);
   };
-  //function to handle location input
+  //function to handle location input for edit form
   const handleUpdateLocation = (event) => {
     setUpdateLocation(event.target.value);
   };
-  //function to handle popularity input
+  //function to handle popularity input for edit form
   const handleUpdatePopularity = (event) => {
     setUpdatePopularity(event.target.value);
   };
-
+  //function to add an image to the image carousel
   const handleAddImage = (event) => {
     setAddphoto(event.target.value);
   };
-
+  //function to add a comment to an existing beach
   const handleAddComment = (event) => {
     setAddComment(event.target.value);
   };
@@ -111,6 +111,7 @@ function App() {
     });
   };
 
+//lets users edit the current beaches
   const handleUpdate = (beachData, event) => {
     const lclID = `http://localhost:3000/${beachData._id}`;
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/${beachData._id}`;
@@ -133,6 +134,7 @@ function App() {
       });
   };
 
+//This lets the user only toggle one edit form at a time by manipulating state
   const toggleEdit = (beachData) => {
     setCreatureID(beachData._id);
     setUpdateName();
@@ -141,10 +143,12 @@ function App() {
     setUpdatePopularity();
   };
 
+//this closes the edit form without sending an update
   const closeEdit = () => {
     setCreatureID();
   };
 
+//This toggles the create beach form open and close
   const toggleForm = () => {
     if (showForm === true) {
       setShowForm(false);
@@ -152,7 +156,7 @@ function App() {
       setShowForm(true);
     }
   };
-
+//renders the show page and sets a few states to make the page function correctly
   const show = (beachData) => {
     setShowData(beachData);
     setShowCommentData(beachData.comments);
@@ -167,6 +171,7 @@ function App() {
     });
   };
 
+//this function allows the user to add photos to the image carousel
   const addImage = (event, beachData) => {
     const lclID = `http://localhost:3000/photo/${beachData._id}/`;
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/photo/${beachData._id}/`;
@@ -184,20 +189,21 @@ function App() {
       });
   };
 
+//moves the photo index forward by 1, displaying the next image
   const photoForward = (beachData) => {
     setIndex(index + 1);
     if (index >= beachData.image.length - 1) {
       setIndex(0);
     }
   };
-
+//moves the photo backwards by 1, displaying the previous image
   const photoBackwards = (beachData) => {
     setIndex(index - 1);
     if (index <= 0) {
       setIndex(beachData.image.length - 1);
     }
   };
-
+//lets the user submit comments that will display on the show page
   const addReview = (event, beachData) => {
     const lclID = `http://localhost:3000/comment/${beachData._id}/`;
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/comment/${beachData._id}/`;
@@ -214,7 +220,7 @@ function App() {
         });
       });
   };
-
+//users are able to delete the currently displayed photo
   const deletePhoto = (beachData) => {
     const lclID = `http://localhost:3000/removephoto/${beachData._id}/`;
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/removephoto/${beachData._id}/`;
@@ -234,7 +240,7 @@ function App() {
         });
       });
   };
-
+//users can delete comments off of the show page
   const deleteComment = (beachData, comment) => {
     const lclID = `http://localhost:3000/removecomment/${beachData._id}/`;
     const hrkID = `https://mysterious-meadow-36213.herokuapp.com/removecomment/${beachData._id}/`;
@@ -250,6 +256,8 @@ function App() {
   };
 
   // Created newBeach component for adding beaches to the data base
+  //created show page component for when the user clicks on a specific image
+  //created showbeach component which maps through our object and displays all the beaches in a div container.
   return (
     <>
       {displayShow !== true ? (
